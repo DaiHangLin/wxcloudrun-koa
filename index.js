@@ -2,6 +2,7 @@ const Koa = require("koa");
 const Router = require("koa-router");
 const logger = require("koa-logger");
 const bodyParser = require("koa-bodyparser");
+const server = require("koa-static");
 const fs = require("fs");
 const path = require("path");
 const { init: initDB, Counter } = require("./db");
@@ -54,6 +55,7 @@ const app = new Koa();
 app
   .use(logger())
   .use(bodyParser())
+  .use(server(path.join(__dirname)))
   .use(router.routes())
   .use(router.allowedMethods());
 

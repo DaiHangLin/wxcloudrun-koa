@@ -1,0 +1,1 @@
+"use strict";(self.webpackJsonp=self.webpackJsonp||[]).push([[5171],{"5171":function(n,o,r){r.r(o),r.d(o,{"taro_movable_view_core":function(){return c}});var t=r(4927),c=function(){function e(n){(0,t.r)(this,n)}return e.prototype.componentDidLoad=function(){console.error("H5 暂不支持 MovableView 组件！")},e.prototype.render=function(){return(0,t.h)(t.H,null)},e}()}}]);
