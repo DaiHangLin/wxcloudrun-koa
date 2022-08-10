@@ -5,9 +5,11 @@ const bodyParser = require("koa-bodyparser");
 const server = require("koa-static");
 const fs = require("fs");
 const path = require("path");
+const axios = require('axios')
 const { init: initDB, Counter, Calendar } = require("./db");
 
 const router = new Router();
+const client = axios.default
 
 const homePage = fs.readFileSync(path.join(__dirname, "index.html"), "utf-8");
 
@@ -79,7 +81,7 @@ router.get("/api/push", async (ctx) => {
   }
   // dispatch to wx server
   const result = await client.post(weixinAPI, payload)
-  console.log('received request', result.data)
+  console.log('received request', result)
   res.send('success')
 })
 
