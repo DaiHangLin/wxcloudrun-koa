@@ -79,7 +79,7 @@ router.get("/api/push", async (ctx) => {
   }
   // dispatch to wx server
   const result = await client.post(weixinAPI, payload)
-  console.log('received request', req.body, result.data)
+  console.log('received request', result.data)
   res.send('success')
 })
 
