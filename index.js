@@ -5,7 +5,7 @@ const bodyParser = require("koa-bodyparser");
 const server = require("koa-static");
 const fs = require("fs");
 const path = require("path");
-const { init: initDB, Counter } = require("./db");
+const { init: initDB, Counter, Calendar } = require("./db");
 
 const router = new Router();
 
@@ -36,7 +36,22 @@ router.post("/api/count", async (ctx) => {
 
 // 获取计数
 router.get("/api/count", async (ctx) => {
-  const result = await Counter.count();
+  const result = await Counter.findAll();
+
+  ctx.body = {
+    code: 0,
+    data: result,
+  };
+});
+
+// 日历事件获取
+router.get("/api/calendar", async (ctx) => {
+  const openId = ctx.request.headers["x-wx-openid"] || 'openId';
+  const result = await Calendar.findAll({
+    where: {
+      openId,
+    }
+  });
 
   ctx.body = {
     code: 0,

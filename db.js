@@ -20,13 +20,41 @@ const Counter = sequelize.define("Counter", {
   },
 });
 
+
+const Calendar = sequelize.define("CalendarEvent", {
+  event: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+    defaultValue: '',
+  },
+  time: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.NOW,
+  },
+  openId: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+    defaultValue: '',
+  },
+  color: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+    defaultValue: '',
+  }
+}, {
+  freezeTableName: true // Model tableName will be the same as the model name
+});
+
 // 数据库初始化方法
 async function init() {
-  await Counter.sync({ alter: true });
+  await Counter.sync({alter: true});
+  await Calendar.sync();
 }
 
 // 导出初始化方法和模型
 module.exports = {
   init,
   Counter,
+  Calendar,
 };
