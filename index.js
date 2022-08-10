@@ -66,6 +66,23 @@ router.get("/api/wx_openid", async (ctx) => {
   }
 });
 
+router.get("/api/push", async (ctx) => {
+  const headers = req.headers
+  const token = headers['x-wx-cloudbase-access-token']
+  const weixinAPI = `https://api.weixin.qq.com/cgi-bin/message/custom/send?cloudbase_access_token=${token}`
+  const payload = {
+      touser: headers['x-wx-openid'],
+      msgtype: 'text',
+      text: {
+          content: `云托管接收消息推送成功，内容如下：222`
+      }
+  }
+  // dispatch to wx server
+  const result = await client.post(weixinAPI, payload)
+  console.log('received request', req.body, result.data)
+  res.send('success')
+})
+
 const app = new Koa();
 app
   .use(logger())
