@@ -82,7 +82,10 @@ router.get("/api/push", async (ctx) => {
   // dispatch to wx server
   const result = await client.post(weixinAPI, payload)
   console.log('received request', result)
-  res.send('success')
+  ctx.body = {
+    code: 0,
+    data: 'success'
+  }
 })
 
 const app = new Koa();
