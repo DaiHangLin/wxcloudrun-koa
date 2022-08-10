@@ -67,7 +67,7 @@ router.get("/api/wx_openid", async (ctx) => {
 });
 
 router.get("/api/push", async (ctx) => {
-  const headers = req.headers
+  const headers = ctx.headers
   const token = headers['x-wx-cloudbase-access-token']
   const weixinAPI = `https://api.weixin.qq.com/cgi-bin/message/custom/send?cloudbase_access_token=${token}`
   const payload = {
