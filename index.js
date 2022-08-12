@@ -79,6 +79,7 @@ router.get("/api/push", async (ctx) => {
           content: `云托管接收消息推送成功，内容如下：222`
       }
   }
+  console.log('token', token,'openId', headers['x-wx-openid'])
   // dispatch to wx server
   const result = await client.post(weixinAPI, payload)
   console.log('received request', result)
