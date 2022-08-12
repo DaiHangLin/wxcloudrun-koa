@@ -89,6 +89,42 @@ router.get("/api/push", async (ctx) => {
   }
 })
 
+
+router.get("/api/push/v2", async (ctx) => {
+  const headers = ctx.headers
+  const token = headers['x-wx-cloudbase-access-token']
+  const weixinAPI = `https://api.weixin.qq.com/cgi-bin/message/subscribe/send?cloudbase_access_token=${token}`
+  const payload = {
+      touser: headers['x-wx-openid'],
+      template_id: "o856LR7yt0zO4k8yCVlBpnABaQK2PqDw4jV9-PLFqUc",
+      data: {
+        "name1": {
+            "value": "339208499"
+        },
+        "thing3": {
+            "value": "2015年01月05日"
+        },
+        "thing4": {
+            "value": "TIT创意园"
+        } ,
+        "time13": {
+            "value": "广州市新港中路397号"
+        },
+        "time14": {
+            "value": "广州市新港中路397号"
+        }
+    }
+  }
+  console.log('token', token,'openId', headers['x-wx-openid'])
+  // dispatch to wx server
+  const result = await client.post(weixinAPI, payload)
+  console.log('received request', result)
+  ctx.body = {
+    code: 0,
+    data: 'success'
+  }
+})
+
 const app = new Koa();
 app
   .use(logger())
