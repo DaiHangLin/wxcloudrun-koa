@@ -90,7 +90,7 @@ router.get("/api/push", async (ctx) => {
 })
 
 
-router.get("/api/push/v2", async (ctx) => {
+router.post("/api/push/v2", async (ctx) => {
   const headers = ctx.headers
   const token = headers['x-wx-cloudbase-access-token']
   const weixinAPI = `https://api.weixin.qq.com/cgi-bin/message/subscribe/send?cloudbase_access_token=${token}`
