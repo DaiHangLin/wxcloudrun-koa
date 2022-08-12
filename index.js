@@ -96,36 +96,33 @@ router.get("/api/push", async (ctx) => {
 
 
 router.post("/api/push/v2", async (ctx) => {
-  const headers = ctx.headers
-  const { data, templateId } = ctx.body
-  const reqData = data || {
-    "name1": {
-        "value": "339208499"
-    },
-    "thing3": {
-        "value": "2015年01月05日"
-    },
-    "thing4": {
-        "value": "TIT创意园"
-    } ,
-    "time13": {
-        "value": "广州市新港中路397号"
-    },
-    "time14": {
-        "value": "广州市新港中路397号"
-    }
-}
-  const token = headers['x-wx-cloudbase-access-token']
-  const weixinAPI = `https://api.weixin.qq.com/cgi-bin/message/subscribe/send?cloudbase_access_token=${token}`
-  const payload = {
-      touser: headers['x-wx-openid'],
-      template_id: templateId || "o856LR7yt0zO4k8yCVlBpnABaQK2PqDw4jV9-PLFqUc",
-      data: reqData,
+  const wxContext = cloud.getWXContext();
+  try {
+    const result = await cloud.openapi.subscribeMessage.send({
+      "touser": wxContext.OPENID,
+      "page": 'index',
+      "lang": 'zh_CN',
+      "data": {
+        "thing1": {
+            "value": "2015年01月05日"
+        },
+        "thing4": {
+            "value": "TIT创意园"
+        } ,
+        "date2": {
+            "value": "2015年01月05日 14:22"
+        },
+        "date3": {
+            "value": "2015年01月05日 18:33"
+        }
+      },
+      "templateId": 'yo8UiLM2TxTwtu3H_-RtRjz1-5Y22pek-9m5Qd2yvlM',
+      "miniprogramState": 'developer'
+    })
+    console.log('==== res', result)
+  } catch (error) {
+    console.error('push error ', error)
   }
-  console.log('token', token,'openId', headers['x-wx-openid'])
-  // dispatch to wx server
-  const result = await client.post(weixinAPI, payload)
-  console.log('received request', result.data, ctx.body, cloud.openapi)
   ctx.body = {
     code: 0,
     data: 'success'
