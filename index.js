@@ -97,9 +97,11 @@ router.get("/api/push", async (ctx) => {
 
 router.post("/api/push/v2", async (ctx) => {
   const wxContext = cloud.getWXContext();
+  console.log('wxContext', wxContext)
+  const headers = ctx.headers
   try {
     const result = await cloud.openapi.subscribeMessage.send({
-      "touser": wxContext.OPENID,
+      "touser": headers['x-wx-openid'],
       "page": 'index',
       "lang": 'zh_CN',
       "data": {
