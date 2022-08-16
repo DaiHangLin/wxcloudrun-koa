@@ -97,37 +97,38 @@ router.get("/api/push", async (ctx) => {
 
 router.post("/api/push/v2", async (ctx) => {
   const wxContext = cloud.getWXContext();
-  console.log('wxContext', wxContext)
-  const headers = ctx.headers
-  try {
-    const result = await cloud.openapi.subscribeMessage.send({
-      "touser": headers['x-wx-openid'],
-      "page": 'index',
-      "lang": 'zh_CN',
-      "data": {
-        "thing1": {
-            "value": "2015年01月05日"
-        },
-        "thing4": {
-            "value": "TIT创意园"
-        } ,
-        "date2": {
-            "value": "2015年01月05日 14:22"
-        },
-        "date3": {
-            "value": "2015年01月05日 18:33"
-        }
-      },
-      "templateId": 'yo8UiLM2TxTwtu3H_-RtRjz1-5Y22pek-9m5Qd2yvlM',
-      "miniprogramState": 'developer'
-    })
-    console.log('==== res', result)
-  } catch (error) {
-    console.error('push error ', error)
-  }
+  // console.log('wxContext', wxContext)
+  // const headers = ctx.headers
+  // try {
+  //   const result = await cloud.openapi.subscribeMessage.send({
+  //     "touser": headers['x-wx-openid'],
+  //     "page": 'index',
+  //     "lang": 'zh_CN',
+  //     "data": {
+  //       "thing1": {
+  //           "value": "2015年01月05日"
+  //       },
+  //       "thing4": {
+  //           "value": "TIT创意园"
+  //       } ,
+  //       "date2": {
+  //           "value": "2015年01月05日 14:22"
+  //       },
+  //       "date3": {
+  //           "value": "2015年01月05日 18:33"
+  //       }
+  //     },
+  //     "templateId": 'yo8UiLM2TxTwtu3H_-RtRjz1-5Y22pek-9m5Qd2yvlM',
+  //     "miniprogramState": 'developer'
+  //   })
+  //   console.log('==== res', result)
+  // } catch (error) {
+  //   console.error('push error ', error)
+  // }
+  console.log('==== ctx.request.body', ctx.request.body)
   ctx.body = {
     code: 0,
-    data: 'success'
+    data: ctx.request.body
   }
 })
 
